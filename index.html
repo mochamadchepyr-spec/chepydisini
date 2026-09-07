@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Portfolio – Nama Kamu</title>
+  <meta name="description" content="Portfolio 3D interaktif" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       CURSOR CUSTOM
+  ═══════════════════════════════════════════ -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursor-follower"></div>
+
+  <!-- ═══════════════════════════════════════════
+       CANVAS 3D BACKGROUND
+  ═══════════════════════════════════════════ -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- ═══════════════════════════════════════════
+       LOADING SCREEN
+  ═══════════════════════════════════════════ -->
+  <div id="loader" class="loader">
+    <div class="loader-inner">
+      <div class="loader-cube">
+        <div class="loader-cube-face front"></div>
+        <div class="loader-cube-face back"></div>
+        <div class="loader-cube-face left"></div>
+        <div class="loader-cube-face right"></div>
+        <div class="loader-cube-face top"></div>
+        <div class="loader-cube-face bottom"></div>
+      </div>
+      <p class="loader-text">Loading<span class="loader-dots">...</span></p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════════ -->
+  <header class="navbar" id="navbar">
+    <div class="nav-logo" id="nav-logo">
+      <span class="logo-bracket">[</span>
+      <span class="logo-name">PORTFOLIO</span>
+      <span class="logo-bracket">]</span>
+    </div>
+    <nav class="nav-links" id="nav-links">
+      <a href="#hero"       class="nav-link" data-section="hero">Home</a>
+      <a href="#about"      class="nav-link" data-section="about">About</a>
+      <a href="#experience" class="nav-link" data-section="experience">Experience</a>
+      <a href="#education"  class="nav-link" data-section="education">Education</a>
+      <a href="#portfolio"  class="nav-link" data-section="portfolio">Work</a>
+      <a href="#showreel"   class="nav-link" data-section="showreel">Showreel</a>
+      <a href="#contact"    class="nav-link" data-section="contact">Contact</a>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       HERO SECTION
+  ═══════════════════════════════════════════ -->
+  <section class="hero" id="hero">
+
+    <!-- ── Liquid Reveal Background ── -->
+    <div class="hero-liquid" id="hero-liquid">
+      <img
+        src="assets/images/hero-base.jpg.png"
+        alt="Hero background"
+        class="hero-base-img"
+        id="hero-base-img"
+        draggable="false"
+      />
+      <canvas
+        class="hero-reveal-canvas"
+        id="hero-reveal-canvas"
+        aria-hidden="true"
+      ></canvas>
+    </div>
+
+    <!-- ── Vignette overlay ── -->
+    <div class="hero-vignette"></div>
+
+    <!-- ── Grain texture ── -->
+    <div class="hero-grain"></div>
+
+    <!-- ── Content ── -->
+    <div class="hero-content" id="hero-content">
+
+      <!-- Badge -->
+      <div class="hero-badge" id="hero-badge">
+        <span class="hero-badge-dot"></span>
+        <span id="hero-badge-text">✦ Available for work</span>
+      </div>
+
+      <!-- Name + title -->
+      <div class="hero-text-block">
+        <h1 class="hero-name" id="hero-name">Nama Kamu</h1>
+        <h2 class="hero-title" id="hero-title">UI/UX Designer &amp; Creative Developer</h2>
+      </div>
+
+      <!-- Tagline -->
+      <p class="hero-tagline" id="hero-tagline">Crafting digital experiences that leave an impression.</p>
+
+      <!-- CTAs -->
+      <div class="hero-cta">
+        <a href="#portfolio" class="btn btn-primary btn-hero">
+          View Work
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#contact" class="btn btn-ghost btn-hero">Let's Talk</a>
+      </div>
+
+    </div>
+
+    <!-- ── Bottom strip ── -->
+    <div class="hero-strip">
+      <span class="hero-strip-item" id="hero-strip-name">Nama Kamu</span>
+      <span class="hero-strip-sep">·</span>
+      <span class="hero-strip-item" id="hero-strip-title">UI/UX Designer</span>
+      <span class="hero-strip-sep">·</span>
+      <span class="hero-strip-item">Move cursor to reveal</span>
+    </div>
+
+    <!-- ── Scroll hint ── -->
+    <div class="hero-scroll-hint">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       ABOUT SECTION
+  ═══════════════════════════════════════════ -->
+  <section class="section about-section" id="about">
+    <canvas class="section-canvas" id="canvas-about" aria-hidden="true"></canvas>
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-label">01 / About</span>
+        <h2 class="section-title">A little bit <em>about me</em></h2>
+      </div>
+
+      <div class="about-grid">
+        <!-- Avatar 3D Card -->
+        <div class="about-visual">
+          <div class="avatar-card" id="avatar-card">
+            <div class="avatar-card-inner">
+              <img src="" alt="Avatar" class="avatar-img" id="about-avatar" />
+              <div class="avatar-card-glow"></div>
+            </div>
+            <div class="avatar-decorations">
+              <div class="deco deco-1">✦</div>
+              <div class="deco deco-2">◈</div>
+              <div class="deco deco-3">⬡</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bio & Skills -->
+        <div class="about-text">
+          <p class="about-bio" id="about-bio">
+            Halo! Saya seorang desainer dan developer kreatif...
+          </p>
+
+          <div class="skills-list" id="skills-list">
+            <!-- diisi oleh JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       EXPERIENCE SECTION
+  ═══════════════════════════════════════════ -->
+  <section class="section experience-section" id="experience">
+    <canvas class="section-canvas" id="canvas-experience" aria-hidden="true"></canvas>
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-label">02 / Experience</span>
+        <h2 class="section-title">Where I've <em>worked</em></h2>
+      </div>
+      <div class="timeline" id="timeline">
+        <!-- diisi oleh JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       EDUCATION SECTION
+  ═══════════════════════════════════════════ -->
+  <section class="edu-section" id="education">
+    <canvas class="section-canvas" id="canvas-education" aria-hidden="true"></canvas>
+    <div class="edu-bg-grid"></div>
+    <div class="section-container">
+      <div class="section-header edu-header reveal">
+        <span class="section-label">03 / Education</span>
+        <h2 class="section-title">Latar <em>Pendidikan</em></h2>
+        <p class="edu-section-sub">Perjalanan akademik yang membentuk siapa gua hari ini</p>
+      </div>
+      <div class="edu-timeline" id="edu-timeline">
+        <!-- diisi JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       PORTFOLIO SECTION
+  ═══════════════════════════════════════════ -->
+  <section class="section portfolio-section" id="portfolio">
+    <canvas class="section-canvas" id="canvas-portfolio" aria-hidden="true"></canvas>
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-label">04 / Work</span>
+        <h2 class="section-title">Selected <em>Projects</em></h2>
+      </div>
+
+      <!-- Filter Pills -->
+      <div class="filter-bar" id="filter-bar">
+        <!-- diisi oleh JS -->
+      </div>
+
+      <!-- Grid proyek -->
+      <div class="portfolio-grid" id="portfolio-grid">
+        <!-- diisi oleh JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SHOWREEL SECTION
+  ═══════════════════════════════════════════ -->
+  <section class="showreel-section" id="showreel">
+    <!-- Cinematic background blur dari thumbnail -->
+    <div class="showreel-bg" id="showreel-bg"></div>
+
+    <div class="showreel-container">
+      <div class="section-header reveal" style="text-align:center;align-items:center">
+        <span class="section-label">05 / Showreel</span>
+        <h2 class="section-title" id="showreel-heading">My <em>Showreel</em></h2>
+        <p class="showreel-subtitle" id="showreel-subtitle">A compilation of my best work</p>
+      </div>
+
+      <!-- Main video player -->
+      <div class="showreel-player reveal" id="showreel-player">
+        <div class="showreel-frame" id="showreel-frame">
+
+          <!-- Poster / thumbnail sebelum play -->
+          <div class="showreel-poster" id="showreel-poster">
+            <img src="" alt="Showreel thumbnail" id="showreel-poster-img" />
+            <div class="showreel-poster-overlay">
+              <div class="showreel-play-btn" id="showreel-play-btn" role="button" tabindex="0" aria-label="Play showreel">
+                <div class="play-ripple"></div>
+                <div class="play-ripple delay-1"></div>
+                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+              <div class="showreel-poster-info">
+                <div class="showreel-poster-label">▶ Play Showreel</div>
+                <div class="showreel-poster-duration" id="showreel-duration"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video embed (diisi JS saat play diklik) -->
+          <div class="showreel-media" id="showreel-media" style="display:none"></div>
+
+        </div>
+
+        <!-- Meta bar di bawah player -->
+        <div class="showreel-meta">
+          <div class="showreel-meta-left">
+            <span class="showreel-year" id="showreel-year"></span>
+            <span class="showreel-dot">·</span>
+            <span class="showreel-tag-list" id="showreel-tags"></span>
+          </div>
+          <div class="showreel-meta-right" id="showreel-cta-wrap">
+            <!-- diisi JS jika ada link eksternal -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Deskripsi showreel -->
+      <p class="showreel-desc reveal" id="showreel-desc"></p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       CONTACT SECTION
+  ═══════════════════════════════════════════ -->
+  <section class="section contact-section" id="contact">
+    <canvas class="section-canvas" id="canvas-contact" aria-hidden="true"></canvas>
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-label">06 / Contact</span>
+        <h2 class="section-title">Let's <em>work together</em></h2>
+      </div>
+
+      <div class="contact-grid">
+
+        <!-- ── Kiri: info kontak ── -->
+        <div class="contact-info">
+          <p class="contact-intro" id="contact-intro">Punya proyek menarik? Saya selalu terbuka untuk kolaborasi baru.</p>
+
+          <!-- Quick contact cards -->
+          <div class="contact-cards" id="contact-cards">
+            <a class="contact-card" id="contact-email-card" href="#">
+              <div class="contact-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <polyline points="2,4 12,13 22,4"/>
+                </svg>
+              </div>
+              <div class="contact-card-body">
+                <div class="contact-card-label">Email</div>
+                <div class="contact-card-value" id="contact-email-text">hello@namakamu.com</div>
+              </div>
+              <div class="contact-card-arrow">→</div>
+            </a>
+
+            <a class="contact-card contact-card--wa" id="contact-wa-card" href="#" target="_blank" rel="noopener noreferrer">
+              <div class="contact-card-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+              </div>
+              <div class="contact-card-body">
+                <div class="contact-card-label">WhatsApp</div>
+                <div class="contact-card-value" id="contact-wa-text">+62...</div>
+              </div>
+              <div class="contact-card-arrow">→</div>
+            </a>
+          </div>
+
+          <!-- Social links -->
+          <div class="contact-socials-label">Temukan saya di</div>
+          <div class="socials" id="socials">
+            <!-- diisi oleh JS -->
+          </div>
+        </div>
+
+        <!-- ── Kanan: form ── -->
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="form-group">
+            <input type="text" id="form-name" placeholder="Nama kamu" required autocomplete="name" />
+            <label for="form-name">Nama</label>
+          </div>
+          <div class="form-group">
+            <input type="email" id="form-email" placeholder="Email kamu" required autocomplete="email" />
+            <label for="form-email">Email</label>
+          </div>
+          <div class="form-group">
+            <textarea id="form-message" placeholder="Ceritain proyeknya..." rows="5" required></textarea>
+            <label for="form-message">Pesan</label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">
+            <span>Kirim Pesan</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          </button>
+          <p class="form-note">* Sambungkan ke <a href="https://formspree.io" target="_blank" rel="noopener">Formspree</a> untuk pengiriman email nyata.</p>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="footer">
+    <p>Designed &amp; Built by <span id="footer-name">Nama Kamu</span> · <span id="footer-year"></span></p>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════
+       LIGHTBOX / MODAL
+  ═══════════════════════════════════════════ -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Project viewer">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">✕</button>
+    <div class="lightbox-inner">
+      <div class="lightbox-media" id="lightbox-media">
+        <!-- image / video / iframe diisi JS -->
+      </div>
+      <div class="lightbox-info" id="lightbox-info">
+        <span class="lightbox-category" id="lb-category"></span>
+        <h3 class="lightbox-title" id="lb-title"></h3>
+        <p class="lightbox-desc" id="lb-desc"></p>
+        <div class="lightbox-meta">
+          <span id="lb-year"></span>
+          <span id="lb-client"></span>
+        </div>
+        <div class="lightbox-tags" id="lb-tags"></div>
+      </div>
+    </div>
+    <button class="lightbox-nav prev" id="lb-prev" aria-label="Previous">‹</button>
+    <button class="lightbox-nav next" id="lb-next" aria-label="Next">›</button>
+  </div>
+  <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+
+  <!-- Scripts -->
+  <script src="portfolio-data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
